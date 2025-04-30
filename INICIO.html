@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>NeoVerse - Portal Anime y Gaming</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    header, footer {
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      color: #ff4de6;
+      text-shadow: 0 0 10px #ff4de6;
+    }
+
+    nav a {
+      color: #fff;
+      margin: 0 1rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #ff4de6;
+    }
+
+    section {
+      padding: 3rem 2rem;
+      text-align: center;
+      display: none;
+    }
+
+    .active { display: block; }
+
+    .box {
+      background: rgba(255,255,255,0.05);
+      padding: 2rem;
+      border-radius: 20px;
+      max-width: 400px;
+      margin: auto;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px #000;
+      transform: rotateX(10deg);
+    }
+
+    input, button {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    button {
+      background: #ff4de6;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    button:hover {
+      background: #e644c3;
+      transform: scale(1.05);
+    }
+
+    iframe {
+      width: 90%;
+      max-width: 560px;
+      height: 315px;
+      border: none;
+      border-radius: 15px;
+      margin-top: 1rem;
+    }
+
+    .mensaje { font-weight: bold; margin-top: 1rem; }
+
+    .assistant {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.85);
+      border: 2px solid #ff4de6;
+      border-radius: 20px;
+      padding: 1rem;
+      width: 250px;
+      z-index: 1000;
+      font-size: 0.9rem;
+      animation: float 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-10px); }
+    }
+
+    .assistant h4 { margin: 0 0 0.5rem 0; color: #ff4de6; }
+
+    .innovacion {
+      margin-top: 2rem;
+      padding: 1rem;
+      background: rgba(255,255,255,0.1);
+      border-radius: 15px;
+      animation: glow 2s infinite alternate;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 10px #ff4de6; }
+      to { box-shadow: 0 0 30px #ff4de6, 0 0 40px #ff4de6; }
+    }
+
+    /* Puzzle */
+    #puzzle {
+      display: grid;
+      grid-template-columns: repeat(3, 100px);
+      grid-template-rows: repeat(3, 100px);
+      gap: 5px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .tile {
+      width: 100px;
+      height: 100px;
+      background-color: #ecf0f1;
+      color: #2c3e50;
+      font-size: 2rem;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .tile.empty { background-color: transparent; cursor: default; }
+
+    /* Picas y Fijas */
+    .picas-section input {
+      max-width: 300px;
+    }
+
+    .respuesta-juego {
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>NeoVerse</h1>
+  <nav>
+    <a href="#" onclick="mostrarSeccion('login')">Inicio</a>
+    <a href="#" onclick="mostrarSeccion('registro')">Registrarme</a>
+    <a href="#" onclick="mostrarSeccion('contenido')">Contenido</a>
+    <a href="#" onclick="mostrarSeccion('juegos')">Juegos</a>
+  </nav>
+</header>
+
+<!-- LOGIN -->
+<section class="active" id="login">
+  <div class="box">
+    <h2>Iniciar Sesión</h2>
+    <input type="text" id="loginUser" placeholder="Usuario">
+    <input type="password" id="loginPass" placeholder="Contraseña">
+    <button onclick="login()">Entrar</button>
+    <div class="mensaje" id="mensajeLogin"></div>
+  </div>
+</section>
+
+<!-- REGISTRO -->
+<section id="registro">
+  <div class="box">
+    <h2>Crear Cuenta</h2>
+    <input type="text" id="nuevoUser" placeholder="Nuevo Usuario">
+    <input type="password" id="nuevoPass" placeholder="Nueva Contraseña">
+    <button onclick="registrar()">Registrar</button>
+    <div class="mensaje" id="mensajeRegistro"></div>
+  </div>
+</section>
+
+<!-- CONTENIDO -->
+<section id="contenido">
+  <h2>🎬 Zona Anime & Gaming 🎮</h2>
+  <iframe src="https://www.youtube.com/embed/MGRm4IzK1SQ"></iframe>
+  <iframe src="https://www.youtube.com/embed/E3Huy2cdih0"></iframe>
+  <div class="innovacion">
+    <h3>✨ NeoBot+ te recomienda anime basado en tu humor</h3>
+  </div>
+  <br>
+  <button onclick="logout()">Cerrar sesión</button>
+</section>
+
+<!-- JUEGOS -->
+<section id="juegos">
+  <h2>🎮 Zona de Mini Juegos</h2>
+
+  <h3>🧩 Puzzle 3x3</h3>
+  <div id="puzzle"></div>
+  <button onclick="mezclar()">Mezclar Puzzle</button>
+  <div class="mensaje" id="mensajePuzzle"></div>
+
+  <h3>🔢 Picas y Fijas</h3>
+  <div class="picas-section">
+    <input type="text" id="entradaPicas" placeholder="Adivina un número de 4 cifras" maxlength="4">
+    <button onclick="jugarPicas()">Probar</button>
+    <div class="respuesta-juego" id="mensajePicas"></div>
+  </div>
+</section>
+
+<!-- Asistente -->
+<div class="assistant">
+  <h4>Asistente NeoBot 🤖</h4>
+  <div id="respuesta">Hola, ¿en qué puedo ayudarte?</div>
+  <button onclick="responderAsistente()">Sugerencia</button>
+</div>
+
+<footer>
+  &copy; 2025 NeoVerse. Todos los derechos reservados.
+</footer>
+
+<script>
+  let usuarios = { "admin": "1234" };
+  let secreto = generarNumero();
+
+  function mostrarSeccion(id) {
+    document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+  }
+
+  function registrar() {
+    const u = document.getElementById("nuevoUser").value.trim();
+    const p = document.getElementById("nuevoPass").value.trim();
+    const msg = document.getElementById("mensajeRegistro");
+    if (u && p) {
+      if (!usuarios[u]) {
+        usuarios[u] = p;
+        msg.textContent = "¡Usuario registrado con éxito!";
+        msg.style.color = "lightgreen";
+        speak("Usuario registrado con éxito");
+      } else {
+        msg.textContent = "Este usuario ya existe.";
+        msg.style.color = "orange";
+      }
+    } else {
+      msg.textContent = "Completa todos los campos.";
+      msg.style.color = "red";
+    }
+  }
+
+  function login() {
+    const u = document.getElementById("loginUser").value.trim();
+    const p = document.getElementById("loginPass").value.trim();
+    const msg = document.getElementById("mensajeLogin");
+    if (usuarios[u] === p) {
+      msg.textContent = "Bienvenido, " + u;
+      msg.style.color = "lightgreen";
+      speak("Bienvenido de vuelta, " + u + ". ¡Prepárate para una experiencia épica!");
+      setTimeout(() => mostrarSeccion('contenido'), 1500);
+    } else {
+      msg.textContent = "Credenciales incorrectas.";
+      msg.style.color = "red";
+    }
+  }
+
+  function logout() {
+    document.getElementById("loginUser").value = "";
+    document.getElementById("loginPass").value = "";
+    mostrarSeccion('login');
+    speak("Sesión cerrada. Hasta pronto.");
+  }
+
+  function responderAsistente() {
+    const ideas = [
+      "¿Ya probaste el juego de picas y fijas?",
+      "Mezcla el puzzle y reta tu mente.",
+      "Explora trailers anime y gaming en contenido.",
+      "¿Qué te gustaría ver en NeoVerse?"
+    ];
+    const texto = ideas[Math.floor(Math.random() * ideas.length)];
+    document.getElementById("respuesta").innerText = texto;
+    speak(texto);
+  }
+
+  function speak(texto) {
+    const voz = new SpeechSynthesisUtterance(texto);
+    voz.lang = 'es-ES';
+    speechSynthesis.speak(voz);
+  }
+
+  // === PUZZLE ===
+  const puzzle = document.getElementById("puzzle");
+  let tiles = [];
+
+  function crearPuzzle() {
+    tiles = [...Array(8).keys()].map(n => n + 1);
+    tiles.push(null);
+    renderizarPuzzle();
+  }
+
+  function mezclar() {
+    for (let i = tiles.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+    }
+    document.getElementById("mensajePuzzle").textContent = "";
+    renderizarPuzzle();
+  }
+
+  function renderizarPuzzle() {
+    puzzle.innerHTML = "";
+    tiles.forEach((v, i) => {
+      const d = document.createElement("div");
+      d.className = "tile" + (v === null ? " empty" : "");
+      if (v) d.textContent = v;
+      d.addEventListener("click", () => mover(i));
+      puzzle.appendChild(d);
+    });
+  }
+
+  function mover(i) {
+    const e = tiles.indexOf(null);
+    if ([i - 1, i + 1, i - 3, i + 3].includes(e) && esAdyacente(i, e)) {
+      [tiles[i], tiles[e]] = [tiles[e], tiles[i]];
+      renderizarPuzzle();
+      verificarGanador();
+    }
+  }
+
+  function esAdyacente(a, b) {
+    const fa = Math.floor(a / 3), ca = a % 3;
+    const fb = Math.floor(b / 3), cb = b % 3;
+    return Math.abs(fa - fb) + Math.abs(ca - cb) === 1;
+  }
+
+  function verificarGanador() {
+    const correcto = [...Array(8).keys()].map(n => n + 1).concat(null);
+    if (tiles.every((v, i) => v === correcto[i])) {
+      document.getElementById("mensajePuzzle").textContent = "¡Puzzle completado!";
+      speak("¡Felicidades! Puzzle completado.");
+    }
+  }
+
+  crearPuzzle();
+
+  // === PICAS Y FIJAS ===
+  function generarNumero() {
+    let nums = [];
+    while (nums.length < 4) {
+      let n = Math.floor(Math.random() * 10);
+      if (!nums.includes(n)) nums.push(n);
+    }
+    return nums.join('');
+  }
+
+  function jugarPicas() {
+    const intento = document.getElementById("entradaPicas").value.trim();
+    const msg = document.getElementById("mensajePicas");
+    if (!/^\d{4}$/.test(intento)) {
+      msg.textContent = "Ingresa 4 cifras únicas.";
+      return;
+    }
+    let p = 0, f = 0;
+    for (let i = 0; i < 4; i++) {
+      if (intento[i] === secreto[i]) f++;
+      else if (secreto.includes(intento[i])) p++;
+    }
+    if (f === 4) {
+      msg.textContent = "¡Ganaste! El número era " + secreto;
+      speak("¡Felicidades, lo adivinaste!");
+      secreto = generarNumero();
+    } else {
+      msg.textContent = `${f} Fijas, ${p} Picas`;
+    }
+  }
+</script>
+
+</body>
+</html>

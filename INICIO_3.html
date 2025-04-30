@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>NeoVerse</title>
+  <style>
+    body {
+      background-color: #0d0d0d;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #1a1a1a;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #ff4de6;
+    }
+
+    nav {
+      margin-top: 10px;
+    }
+
+    nav a {
+      margin: 0 10px;
+      color: #ffccff;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    section {
+      display: none;
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    section.active {
+      display: block;
+    }
+
+    button {
+      background-color: #ff4de6;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      margin-top: 15px;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #e600b3;
+    }
+
+    .cartelera-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .cartel-item {
+      background: rgba(255,255,255,0.08);
+      border-radius: 15px;
+      padding: 1rem;
+      box-shadow: 0 0 10px #ff4de6;
+      transition: transform 0.3s;
+    }
+
+    .cartel-item:hover {
+      transform: scale(1.03);
+    }
+
+    iframe {
+      border-radius: 10px;
+    }
+
+    .fondo-anime {
+      background-image: linear-gradient(to bottom right, #ff99cc, #6600cc);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .sprite {
+      width: 64px;
+      height: 64px;
+      background: url('https://i.imgur.com/FSnGx9h.png');
+      animation: walk 1s steps(4) infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes walk {
+      0% { background-position: 0 0; }
+      100% { background-position: -256px 0; }
+    }
+
+    input {
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      margin-top: 10px;
+    }
+
+    .personaje-img {
+      max-width: 250px;
+      margin: 20px auto;
+      display: block;
+      border-radius: 15px;
+      box-shadow: 0 0 15px #ff4de6;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>NeoVerse</h1>
+    <nav>
+      <a onclick="mostrarSeccion('inicio')">Inicio</a>
+      <a onclick="mostrarSeccion('anime')">Anime</a>
+      <a onclick="mostrarSeccion('juegos')">Juegos</a>
+      <a onclick="mostrarSeccion('cartelera')">Cartelera</a>
+      <a onclick="mostrarSeccion('comunidad')">Comunidad</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="inicio" class="active">
+      <h2>Bienvenido a NeoVerse</h2>
+      <p>Explora el mundo del anime y los videojuegos en un solo lugar.</p>
+    </section>
+
+    <section id="anime">
+      <h2>🎥 Anime</h2>
+      <p>Aquí podrás ver los mejores animes recomendados y sus trailers.</p>
+    </section>
+
+    <section id="juegos">
+      <h2>🏍️ Mini Juego: Carreras de Carros y Motos</h2>
+      <iframe src="https://www.crazygames.com/embed/extreme-car-parking" width="100%" height="500" frameborder="0" allowfullscreen></iframe>
+      <p style="text-align:center; margin-top:10px;">Mini juego cortesía de CrazyGames</p>
+
+      <hr style="margin:40px 0; border-color:#ff4de6">
+
+      <h3>🎮 Animación estilo videojuego</h3>
+      <div class="sprite"></div>
+    </section>
+
+    <section id="cartelera">
+        <h2>🎞️ Cartelera Anime y Gaming</h2>
+        <div class="cartelera-grid">
+          <div class="cartel-item">
+            <h3>Jujutsu Kaisen - Temporada 3</h3>
+            <iframe width="100%" height="200" src="https://www.youtube.com/watch?v=j9BgtGfIqFQ" frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="cartel-item">
+            <h3>One Piece - Nuevo Arco</h3>
+            <iframe width="100%" height="200" src="https://www.youtube.com/watch?v=xXZ4yp7KRps" frameborder="0" allowfullscreen></iframe>
+          </div>
+          <div class="cartel-item">
+            <h3>Demon Slayer - Temporada Nueva</h3>
+            <iframe width="100%" height="200" src="https://youtu.be/sbkI9YjBmd0?si=ZydSbeeLqi_TybwD" frameborder="0" allowfullscreen></iframe>
+          </div>
+        </div>
+      </section>
+
+    <section id="comunidad">
+      <h2>🤝 Únete a la Comunidad NeoVerse</h2>
+      <p>Conéctate con otros fans de anime y gaming, comparte contenido y juega en grupo.</p>
+      <a href="https://chat.whatsapp.com/tu-enlace-de-grupo" target="_blank">
+        <button>Unirme al Grupo de WhatsApp</button>
+      </a>
+    </section>
+  </main>
+
+  <script>
+    const personajes = [
+      { nombre: "goku", img: "https://static.wikia.nocookie.net/dragonball/images/3/3b/Goku_Render.png" },
+      { nombre: "naruto", img: "https://static.wikia.nocookie.net/naruto/images/4/4d/Naruto_Uzumaki_Part_II.png" },
+      { nombre: "luffy", img: "https://static.wikia.nocookie.net/onepiece/images/1/15/Monkey_D._Luffy_Anime_Pre_Timeskip_Infobox.png" },
+      { nombre: "tanjiro", img: "https://static.wikia.nocookie.net/kimetsu-no-yaiba/images/2/2c/Tanjiro_anime.png" }
+    ];
+
+    let personajeActual = {};
+
+    function mostrarSeccion(id) {
+      const secciones = document.querySelectorAll('section');
+      secciones.forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      if (id === "juegos") nuevoPersonaje();
+    }
+
+  </script>
+</body>
+</html>
